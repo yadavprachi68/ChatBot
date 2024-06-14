@@ -1,0 +1,38 @@
+class RuleBasedChatbot:
+    def __init__(self):
+        self.rules = {
+            'hello': self.greet,
+            'hi': self.greet,
+            'how are you': self.how_are_you,
+            'bye': self.farewell,
+            'default': self.default_response
+        }
+    
+    def greet(self):
+        return "Hello! How can I help you today?"
+    
+    def how_are_you(self):
+        return "I'm just a bot, but I'm here to help you!"
+    
+    def farewell(self):
+        return "Goodbye! Have a great day!"
+    
+    def default_response(self):
+        return "I'm sorry, I don't understand that. Can you please rephrase?"
+    
+    def get_response(self, user_input):
+        user_input = user_input.lower()
+        for key in self.rules:
+            if key in user_input:
+                return self.rules[key]()
+        return self.rules['default']()
+    
+if __name__ == "__main__":
+    bot = RuleBasedChatbot()
+    print("Chatbot: Hello! Type 'bye' to exit.")
+    while True:
+        user_input = input("You: ")
+        if 'bye' in user_input.lower():
+            print("Chatbot:", bot.get_response(user_input))
+            break
+        print("Chatbot:", bot.get_response(user_input))
